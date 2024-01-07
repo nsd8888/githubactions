@@ -43,7 +43,7 @@ jobs:
               uses: actions/upload-artifact@v3
               with:
                 name: generate-files
-                path: ./files
+                path: new.py
     
     Consumer:
         runs-on: ubuntu-latest
@@ -67,11 +67,9 @@ jobs:
               uses: actions/download-artifact@v3
               with:
                 name: generate-files
-                path: curr
             
             - name: run the display.py file
               run: |
-                ls curr
                 python display.py
 
     
