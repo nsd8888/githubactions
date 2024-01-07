@@ -67,11 +67,11 @@ jobs:
               uses: actions/download-artifact@v2
               with:
                 name: generate-files
-                path: ./files
+                path: curr
             
             - name: run the display.py file
               run: |
-                ls files
+                ls curr
                 python display.py
 
     
