@@ -26,11 +26,13 @@ jobs:
               run: |
                 pip install -r requirements.txt
 
-            - name: store env
-              uses: actions/upload-artifact@v2
+            - name: Cache virtual environment
+              uses: actions/cache@v2
               with:
-                name: virtual-env
-                path: myenv
+                path: |
+                    myenv
+                key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+              if: success()
 
 
             - name: Run the script and generate artifact
@@ -40,7 +42,7 @@ jobs:
             - name: store generated artifact
               uses: actions/upload-artifact@v2
               with:
-                name: generated-files
+                name: generate-files
                 path: ./files
     
     Consumer:
@@ -50,11 +52,12 @@ jobs:
             - name: checkout repository
               uses: actions/checkout@v2
 
-            - name: download-artifacts
-              uses: actions/download-artifact@v2
+            - name: Restore virtual environment
+              uses: actions/cache@v2
               with:
-                name: virtual-env
-                path: myenv
+                path: |
+                    myenv
+                key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
 
             - name: activate env
               run: |
@@ -63,7 +66,7 @@ jobs:
             - name: download generated artifact
               uses: actions/download-artifact@v2
               with:
-                name: generated-files
+                name: generate-files
                 path: ./files
             
             - name: run the display.py file
