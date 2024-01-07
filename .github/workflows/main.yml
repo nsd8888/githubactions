@@ -43,7 +43,7 @@ jobs:
               uses: actions/upload-artifact@v3
               with:
                 name: some-data
-                path: new.py
+                path: new.txt
     
     Consumer:
         runs-on: ubuntu-latest
