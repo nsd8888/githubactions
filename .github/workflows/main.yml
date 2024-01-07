@@ -6,7 +6,7 @@ on:
             - main
 
 jobs:
-    calculates:
+    Generator:
         runs-on: ubuntu-latest
         steps:
             - name: checkout repository
@@ -26,14 +26,51 @@ jobs:
               run: |
                 pip install -r requirements.txt
 
-            - name: Run the script and set env
-              run: |
-                MYENV = $(python script.py)
-                echo "MYENV=$MYENV" >> $GITHUB_ENV
-                
+            - name: store env
+              uses: actions/upload-artifact@v2
+              with:
+                name: virtual-env
+                path: myenv
 
-            - name: Lets print
+
+            - name: Run the script and generate artifact
               run: |
-                echo "my answer is : MYENV"
+                python script.py
+                
+            - name: store generated artifact
+              uses: actions/upload-artifact@v2
+              with:
+                name: generated-files
+                path: ./files
+    
+    Consumer:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: checkout repository
+              uses: actions/checkout@v2
+
+            - name: download-artifacts
+              uses: actions/download-artifact@v2
+              with:
+                name: virtual-env
+                path: myenv
+
+            - name: activate env
+              run: |
+                source myenv/bin/activate
+
+            - name: download generated artifact
+              uses: actions/download-artifact@v2
+              with:
+                name: generated-files
+                path: ./files
+            
+            - name: run the display.py file
+              run: |
+                python display.py
+
+    
+                
 
             
