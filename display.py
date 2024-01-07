@@ -1,4 +1,4 @@
-with open(f"new.py", "r") as t:
+with open(f"new.txt", "r") as t:
     var=t.read()
 
 print(var)
