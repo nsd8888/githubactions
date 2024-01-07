@@ -26,7 +26,9 @@ jobs:
               run: |
                 pip install -r requirements.txt
 
-            - name: Run the script
-              run: |
-                python script.py
+            - name: Run the script and set env
+              run: echo "MYENV=python script.py" >> $GITHUB_ENV
+
+            - name: Lets print
+              run: echo "my answer is : $MYENV"
             
