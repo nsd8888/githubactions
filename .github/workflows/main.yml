@@ -27,7 +27,7 @@ jobs:
                 pip install -r requirements.txt
 
             - name: Cache virtual environment
-              uses: actions/cache@v2
+              uses: actions/cache@v3
               with:
                 path: |
                     myenv
@@ -40,7 +40,7 @@ jobs:
                 python script.py
                 
             - name: store generated artifact
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v3
               with:
                 name: generate-files
                 path: ./files
@@ -53,7 +53,7 @@ jobs:
               uses: actions/checkout@v2
 
             - name: Restore virtual environment
-              uses: actions/cache@v2
+              uses: actions/cache@v3
               with:
                 path: |
                     myenv
@@ -64,7 +64,7 @@ jobs:
                 source myenv/bin/activate
 
             - name: download generated artifact
-              uses: actions/download-artifact@v2
+              uses: actions/download-artifact@v3
               with:
                 name: generate-files
                 path: curr
