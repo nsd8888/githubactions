@@ -1,0 +1,32 @@
+name: programming run
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    calculates:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout repository
+              uses: actions/checkout@v2
+            
+            - name: set up python
+              uses: actions/set-python@v3
+              with:
+                python-version: 3.11
+
+            - name: create environment
+              run: |
+                python -m venv myenv
+                source myenv/bin/activate
+
+            - name: install dependencies
+              run: |
+                pip install -r requirements.txt
+
+            - name: Run the script
+              run: |
+                python script.py
+            
