@@ -2,7 +2,7 @@ FROM python:3.10-slim-buster
 ARG RUNID=default_value
 WORKDIR /
 COPY requirements.txt .
-
+RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 
 ENV MLFLOW_TRACKING_URI=https://dagshub.com/nsd8888/mlops-mlflow.mlflow
