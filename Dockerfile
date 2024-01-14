@@ -10,10 +10,7 @@ COPY requirements.txt .
 RUN pip3 install --upgrade pip
 RUN python3 -m venv myvenv
 ENV PATH="/myvenv/bin:$PATH"
-
-
 RUN pip3 install -r requirements.txt
-
 ENV MLFLOW_TRACKING_URI=${MLFLOW_TRACKING_URI}
 ENV MLFLOW_TRACKING_USERNAME=${MLFLOW_TRACKING_USERNAME}
 ENV MLFLOW_TRACKING_PASSWORD=${MLFLOW_TRACKING_PASSWORD}
