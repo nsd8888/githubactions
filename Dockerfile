@@ -3,8 +3,7 @@ ARG RUNID=default_value
 WORKDIR /
 COPY requirements.txt .
 RUN pip3 install --upgrade pip
-RUN python -m venv myvenv
-
+RUN python3 -m venv myvenv
 ENV PATH="/myvenv/bin:$PATH"
 
 
